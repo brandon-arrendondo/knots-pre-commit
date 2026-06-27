@@ -1,0 +1,6 @@
+# Python build artifacts (this shim has no code; these appear only from local
+# `pip install .` validation)
+build/
+dist/
+*.egg-info/
+__pycache__/

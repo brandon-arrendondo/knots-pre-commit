@@ -1,0 +1,37 @@
+# pre-commit hooks for knots — prebuilt-wheel edition.
+#
+# These hooks use language: python. pre-commit installs this repo into an
+# isolated virtualenv, which pulls the prebuilt `knots` wheel from PyPI and puts
+# the `knots` binary on PATH. First run is seconds — no Rust toolchain, no
+# from-source compile.
+#
+# For the from-source (language: rust) or bring-your-own-binary (language: system)
+# variants, use the hooks in the main repo: brandon-arrendondo/knots.
+#
+# Override thresholds with `args:` in your .pre-commit-config.yaml. pre-commit
+# *replaces* args (not appends), so you get full control:
+#   args: [--mccabe-threshold=20, --cognitive-threshold=20]
+
+- id: knots
+  name: Code Complexity Check
+  description: Check code complexity; default gate is AIRD ≤ 85 (fully overridable via args:)
+  entry: knots
+  args: [--aird-threshold=85]
+  language: python
+  types_or: [c, c++, rust, python, javascript]
+
+- id: knots-verbose
+  name: Code Complexity Check (Verbose)
+  description: Show detailed per-function output; default gate is AIRD ≤ 85 (overridable via args:)
+  entry: knots
+  args: [--verbose, --aird-threshold=85]
+  language: python
+  types_or: [c, c++, rust, python, javascript]
+
+- id: knots-strict
+  name: Code Complexity Check (Strict)
+  description: Strict thresholds for C, C++, Rust, Python, and JavaScript (McCabe 10, Cognitive 10, Nesting 3, SLOC 30, ABC 5.0, Returns 3)
+  entry: knots
+  args: [--mccabe-threshold=10, --cognitive-threshold=10, --nesting-threshold=3, --sloc-threshold=30, --abc-threshold=5.0, --return-threshold=3]
+  language: python
+  types_or: [c, c++, rust, python, javascript]
