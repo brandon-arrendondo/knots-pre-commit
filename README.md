@@ -16,7 +16,7 @@ Add to your `.pre-commit-config.yaml`:
 ```yaml
 repos:
   - repo: https://github.com/brandon-arrendondo/knots-pre-commit
-    rev: v2.0.0            # pin to a released knots version
+    rev: v2.1.0            # pin to a released knots version
     hooks:
       - id: knots           # default gate: AIRD ≤ 85
       # - id: knots-verbose  # same gate, per-function detail
