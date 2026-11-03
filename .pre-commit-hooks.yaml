@@ -8,6 +8,14 @@
 # For the from-source (language: rust) or bring-your-own-binary (language: system)
 # variants, use the hooks in the main repo: brandon-arrendondo/knots.
 #
+# Each hook selects files exactly as the hook of the same id in knots'
+# .pre-commit-hooks.yaml does: by extension, the set knots analyses
+# (`knots --supported-languages`, explicit-only .h and .ads included), in any
+# letter case. pre-commit's type tags are not used: they miss Ada, and tag
+# files knots cannot analyse (.hh, .inl and .ipp as C++), which would fail the
+# scan as incomplete. Keep `files:` and the default `args:` identical to
+# knots' on every release.
+#
 # Override thresholds with `args:` in your .pre-commit-config.yaml. pre-commit
 # *replaces* args (not appends), so you get full control:
 #   args: [--mccabe-threshold=20, --cognitive-threshold=20]
@@ -18,7 +26,7 @@
   entry: knots
   args: [--aird-threshold=85]
   language: python
-  types_or: [c, c++, rust, python, javascript]
+  files: '(?i)\.(c|h|cpp|cc|cxx|hpp|hxx|rs|py|js|mjs|cjs|jsx|ts|tsx|adb|ada|ads|go|java|cs|kt|kts|swift|php|f90|f95|f03|f08|scala|sc|lua)$'
 
 - id: knots-verbose
   name: Code Complexity Check (Verbose)
@@ -26,12 +34,12 @@
   entry: knots
   args: [--verbose, --aird-threshold=85]
   language: python
-  types_or: [c, c++, rust, python, javascript]
+  files: '(?i)\.(c|h|cpp|cc|cxx|hpp|hxx|rs|py|js|mjs|cjs|jsx|ts|tsx|adb|ada|ads|go|java|cs|kt|kts|swift|php|f90|f95|f03|f08|scala|sc|lua)$'
 
 - id: knots-strict
   name: Code Complexity Check (Strict)
-  description: Strict thresholds for C, C++, Rust, Python, and JavaScript (McCabe 10, Cognitive 10, Nesting 3, SLOC 30, ABC 5.0, Returns 3)
+  description: Strict thresholds for every language knots supports (McCabe 10, Cognitive 10, Nesting 3, SLOC 30, ABC 20.0, Returns 3)
   entry: knots
-  args: [--mccabe-threshold=10, --cognitive-threshold=10, --nesting-threshold=3, --sloc-threshold=30, --abc-threshold=5.0, --return-threshold=3]
+  args: [--mccabe-threshold=10, --cognitive-threshold=10, --nesting-threshold=3, --sloc-threshold=30, --abc-threshold=20.0, --return-threshold=3]
   language: python
-  types_or: [c, c++, rust, python, javascript]
+  files: '(?i)\.(c|h|cpp|cc|cxx|hpp|hxx|rs|py|js|mjs|cjs|jsx|ts|tsx|adb|ada|ads|go|java|cs|kt|kts|swift|php|f90|f95|f03|f08|scala|sc|lua)$'

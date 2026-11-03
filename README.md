@@ -20,7 +20,7 @@ repos:
     hooks:
       - id: knots           # default gate: AIRD ≤ 85
       # - id: knots-verbose  # same gate, per-function detail
-      # - id: knots-strict   # McCabe 10, Cognitive 10, Nesting 3, SLOC 30, ABC 5.0, Returns 3
+      # - id: knots-strict   # McCabe 10, Cognitive 10, Nesting 3, SLOC 30, ABC 20.0, Returns 3
 ```
 
 Then:
@@ -28,6 +28,11 @@ Then:
 ```bash
 pre-commit install
 ```
+
+The hooks check every file knots can analyse, chosen by extension in any
+letter case: C, C++, Rust, Python, JavaScript, TypeScript, Ada, Go, Java, C#,
+Kotlin, Swift, PHP, Fortran, Scala and Lua (`knots --supported-languages`
+lists the extensions). Add `types_or:` to a hook to check only some of them.
 
 Override thresholds with `args:` (pre-commit *replaces* args, so you control the
 full set):
